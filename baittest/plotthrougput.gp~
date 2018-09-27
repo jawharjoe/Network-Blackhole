@@ -1,0 +1,42 @@
+set term jpeg
+
+set title "aodv Throughput"
+
+set xlabel "Time"
+set ylabel "Throughput"
+set output "rthroughput.jpg"
+
+plot "thrput.tr" using 1:2 title "Throughput" with linespoints 
+
+set term jpeg
+
+set title "gaodv Throughput"
+
+set xlabel "Time"
+set ylabel "Throughput"
+set output "gthroughput.jpg"
+
+plot "gthrput.tr" using 1:2 title "gaodv Throughput" with linespoints 
+
+set term jpeg
+
+set title "s gaodv Throughput"
+
+set xlabel "Time"
+set ylabel "Throughput"
+set output "sthroughput.jpg"
+
+plot "sthrput.tr" using 1:2 title "s gaodv Throughput" with linespoints 
+
+
+set term jpeg
+
+set title "Throughput comparison"
+
+set xlabel "Time"
+set ylabel "Throughput"
+set output "cthroughput.jpg"
+
+plot "sthrput.tr" using 1:2 title "s gaodv Throughput" with linespoints, \
+     "gthrput.tr" using 1:2 title "gaodv Throughput" with linespoints, \
+     "thrput.tr" using 1:2 title "Throughput" with linespoints

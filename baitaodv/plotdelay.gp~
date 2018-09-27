@@ -1,0 +1,42 @@
+set term jpeg
+
+set title "aodv delay"
+
+set xlabel "Time"
+set ylabel "delay"
+set output "rdelay.jpg"
+
+plot "delay.tr" using 1:2 title "Delay" with linespoints 
+
+set term jpeg
+
+set title "gaodv delay"
+
+set xlabel "Time"
+set ylabel "delay"
+set output "gdelay.jpg"
+
+plot "gdelay.tr" using 1:2 title "gaodv Delay" with linespoints 
+
+set term jpeg
+
+set title "sgaodv delay"
+
+set xlabel "Time"
+set ylabel "delay"
+set output "sdelay.jpg"
+
+plot "sdelay.tr" using 1:2 title "Secure gaodv Delay" with linespoints 
+
+
+set term jpeg
+
+set title "delay comparison"
+
+set xlabel "Time"
+set ylabel "delay"
+set output "cdelay.jpg"
+
+plot "sdelay.tr" using 1:2 title "Secure gaodv Delay" with linespoints, \
+     "gdelay.tr" using 1:2 title "gaodv Delay" with linespoints, \
+     "delay.tr" using 1:2 title "Delay" with linespoints

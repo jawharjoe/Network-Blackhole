@@ -1,0 +1,54 @@
+
+proc myRand { min max } {
+   
+    
+    set maxFactor [expr $max - $min]
+    set value [expr int([expr rand() * $maxFactor])]
+    set value [expr $value + $min]
+    return $value
+}
+
+proc qinit {qvar} {
+    upvar 1 $qvar Q
+    set Q [list]
+}
+proc qput {qvar elem} {
+    upvar 1 $qvar Q
+    lappend Q $elem
+}
+proc qget {qvar} {
+    upvar 1 $qvar Q
+    set head [lindex $Q 0]
+    set Q [lrange $Q 1 end]
+    return $head
+}
+proc qempty {qvar} {
+    upvar 1 $qvar Q
+    return [expr {[llength $Q] == 0}]
+}
+
+
+
+
+proc createUDPConnection {nodetosend destnode} { 
+  global ns node_ inter
+  
+    set udp0 [new Agent/UDP]
+    $udp0 set class_ 1
+    $ns attach-agent $node_($nodetosend) $udp0
+    # Create a CBR traffic source and attach it to udp0
+    set cbr0 [new Application/Traffic/CBR]
+    $cbr0 set interval_ .05
+    $cbr0 attach-agent $udp0  
+
+   set inter [new Agent/LossMonitor]
+   $ns attach-agent $node_($destnode) $inter
+   $ns connect $udp0 $inter     
+   
+   set ti [$ns now]
+   set tf [expr $ti+5]
+   $ns at $ti "$cbr0 start" 
+   $ns at $tf "$cbr0 stop"       
+
+
+}
